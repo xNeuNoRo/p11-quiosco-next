@@ -20,7 +20,7 @@
     ],
     "paths": {
       "@/*": ["./*"],
-      "@prismadb/*": ["./lib/prisma/generated/*"]
+      "@prismadb/*": ["./src/lib/prisma/generated/*"]
     }
   },
   "include": [
