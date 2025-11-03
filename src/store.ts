@@ -9,6 +9,7 @@ interface Store {
   increaseQuantity: (id: Product["id"]) => void;
   decreaseQuantity: (id: Product["id"]) => void;
   removeItem: (id: Product["id"]) => void;
+  clearOrder: () => void;
 }
 
 export const useStore = create<Store>()(
@@ -74,6 +75,11 @@ export const useStore = create<Store>()(
     removeItem: (id) => {
       set((state) => ({
         order: state.order.filter((item) => item.id !== id),
+      }));
+    },
+    clearOrder: () => {
+      set(() => ({
+        order: [],
       }));
     },
   }))
