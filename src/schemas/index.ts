@@ -13,3 +13,10 @@ export const orderSchema = z.object({
     })
   ),
 });
+
+export const orderIdSchema = z.object({
+  orderId: z
+    .string()
+    .transform((val) => parseInt(val, 10)) // transformar a numero
+    .refine((val) => val > 0, { message: "Hay errores en la orden" }), // validar que sea mayor a 0 (basicamente un numero entero positivo)
+});
