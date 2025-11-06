@@ -1,14 +1,16 @@
 import { OrderWithProducts } from "@/src/types";
-import { formatCurrency } from "@/src/utils";
+import { deriveInitialState, formatCurrency } from "@/src/utils";
 import { completeOrder } from "@/actions/complete-order-action";
 import { KeyedMutator } from "swr";
-import { useActionState, useEffect, useMemo } from "react";
+import { useActionState, useEffect } from "react";
 import { toast } from "react-toastify";
 
 type OrderCardProps = {
   order: OrderWithProducts;
   mutate: KeyedMutator<OrderWithProducts[]>;
 };
+
+const initialState = deriveInitialState(completeOrder);
 
 export default function OrderCard({ order, mutate }: OrderCardProps) {
   // Esto es solo de ejemplo, lo recomendado seria manejarlo como un action aparte para no tener que refactorizar este componente
@@ -21,16 +23,7 @@ export default function OrderCard({ order, mutate }: OrderCardProps) {
   //     console.log("desde completeOrder");
   //   }
 
-  type CompleteOrderState = Awaited<ReturnType<typeof completeOrder>>;
-  const initialState = useMemo<CompleteOrderState>(
-    () => ({ status: "idle" }),
-    []
-  );
-
-  const [state = initialState, formAction] = useActionState(
-    completeOrder,
-    initialState
-  );
+  const [state, formAction] = useActionState(completeOrder, initialState);
 
   useEffect(() => {
     if (!state || state === initialState) return;
@@ -44,7 +37,7 @@ export default function OrderCard({ order, mutate }: OrderCardProps) {
       toast.success(state.data?.message || "Orden completada exitosamente");
       mutate();
     }
-  }, [state, mutate, initialState]);
+  }, [state, mutate]);
 
   return (
     <section
