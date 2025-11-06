@@ -24,3 +24,25 @@ export const orderIdSchema = z.object({
 export const searchFormSchema = z.object({
   search: z.string().trim().min(1, "La busqueda no puede estar vacía"),
 });
+
+export const productFormSchema = z.object({
+  name: z
+    .string()
+    .trim()
+    .min(1, { message: "El nombre del producto no puede ir vacio" }),
+  price: z
+    .string()
+    .trim()
+    .transform((value) => parseFloat(value))
+    .refine((value) => value > 0, { message: "Precio no válido" })
+    .or(z.number().min(1, { message: "El precio es obligatorio" })),
+  categoryId: z
+    .string()
+    .trim()
+    .transform((value) => parseInt(value))
+    .refine((value) => value > 0, { message: "La categoría es obligatoria" })
+    .or(z.number().min(1, { message: "La categoría es obligatoria" })),
+  image: z
+    .string()
+    .min(1, { message: "La imagen del producto es obligatoria" }),
+});

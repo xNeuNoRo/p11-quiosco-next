@@ -11,6 +11,13 @@ const nextConfig: NextConfig = {
     qualities: [50, 60, 70, 80, 85],
     // Y en estos formatos
     formats: ["image/avif", "image/webp"],
+    // Permitir imagenes desde estos dominios
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+      },
+    ],
   },
 };
 
