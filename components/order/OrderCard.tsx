@@ -10,6 +10,9 @@ type OrderCardProps = {
   mutate: KeyedMutator<OrderWithProducts[]>;
 };
 
+// Inferimos el tipo del estado inicial usando la funcion deriveInitialState
+// Siempre sera un {status: 'idle'} segun la implementacion actual
+// Pero con esta forma evito boilerplate y infiero el tipo de retorno de {status: 'success', data: T} automaticamente
 const initialState = deriveInitialState(completeOrder);
 
 export default function OrderCard({ order, mutate }: OrderCardProps) {
@@ -23,16 +26,23 @@ export default function OrderCard({ order, mutate }: OrderCardProps) {
   //     console.log("desde completeOrder");
   //   }
 
+  // Usar el useActionState para manejar el estado de la accion
   const [state, formAction] = useActionState(completeOrder, initialState);
 
+  // useEffect para renderizar en cuanto cambie el estado de la accion
   useEffect(() => {
+    // Si el estado es nulo o es el estado inicial, no hacer nada
     if (!state || state === initialState) return;
 
+    // Si el estado es de error, mostrar el error o mensaje generico
     if (state.status === "error") {
-      toast.error(state.error || "Error al completar la orden");
+      toast.error(state.error || "Ha ocurrido un error desconocido");
       return;
     }
 
+    // Si el estado es exitoso, mostrar el mensaje de exito que retorne con message o uno default
+    // Ya que la orden se completo podemos saber el mensaje, y el mutate() viene de SWR
+    // para refrescar los datos similar a React Query
     if (state.status === "success") {
       toast.success(state.data?.message || "Orden completada exitosamente");
       mutate();
