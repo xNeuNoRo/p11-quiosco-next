@@ -12,3 +12,9 @@ export type OrderWithProducts = Order & {
     product: Product; // y dentro de esta tabla pivote, el producto relacionado
   })[]; // Como array de productos de la orden obviamente
 };
+
+export type ActionState<TData = unknown> =
+  | { status: "idle" }
+  | { status: "loading" }
+  | { status: "success"; data?: TData }
+  | { status: "error"; error: string };

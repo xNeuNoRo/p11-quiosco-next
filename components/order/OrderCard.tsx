@@ -1,12 +1,16 @@
 import { OrderWithProducts } from "@/src/types";
 import { formatCurrency } from "@/src/utils";
 import { completeOrder } from "@/actions/complete-order-action";
+import { KeyedMutator } from "swr";
+import { useActionState, useEffect, useMemo } from "react";
+import { toast } from "react-toastify";
 
 type OrderCardProps = {
   order: OrderWithProducts;
+  mutate: KeyedMutator<OrderWithProducts[]>;
 };
 
-export default function OrderCard({ order }: OrderCardProps) {
+export default function OrderCard({ order, mutate }: OrderCardProps) {
   // Esto es solo de ejemplo, lo recomendado seria manejarlo como un action aparte para no tener que refactorizar este componente
   // Ya que, si en algun momento se quisiera hacer un componente del cliente, este codigo no tendria sentido aqui
   //   async function completeOrder(formData: FormData) {
@@ -16,6 +20,31 @@ export default function OrderCard({ order }: OrderCardProps) {
 
   //     console.log("desde completeOrder");
   //   }
+
+  type CompleteOrderState = Awaited<ReturnType<typeof completeOrder>>;
+  const initialState = useMemo<CompleteOrderState>(
+    () => ({ status: "idle" }),
+    []
+  );
+
+  const [state = initialState, formAction] = useActionState(
+    completeOrder,
+    initialState
+  );
+
+  useEffect(() => {
+    if (!state || state === initialState) return;
+
+    if (state.status === "error") {
+      toast.error(state.error || "Error al completar la orden");
+      return;
+    }
+
+    if (state.status === "success") {
+      toast.success(state.data?.message || "Orden completada exitosamente");
+      mutate();
+    }
+  }, [state, mutate, initialState]);
 
   return (
     <section
@@ -52,7 +81,7 @@ export default function OrderCard({ order }: OrderCardProps) {
         </div>
       </dl>
 
-      <form action={completeOrder}>
+      <form action={formAction}>
         {/* input oculto para enviar el id de la orden al action */}
         <input type="hidden" value={order.id} name="order_id" />
         <input
