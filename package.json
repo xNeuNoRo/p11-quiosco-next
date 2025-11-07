@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "vercel-build": "mkdir -p src/lib/prisma/generated/client && npx prisma generate && next build"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
