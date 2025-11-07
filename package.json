@@ -7,13 +7,15 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "vercel-build": "npx prisma generate --schema=./prisma/schema.prisma && next build"
+    "vercel-build": "pnpm dlx prisma generate && next build"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
+    "@prisma/adapter-pg": "^6.19.0",
     "@prisma/client": "^6.18.0",
     "next": "16.0.0",
     "next-cloudinary": "^6.17.1",
+    "pg": "^8.16.3",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "react-icons": "^5.5.0",
@@ -25,6 +27,7 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
+    "@types/pg": "^8.15.6",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "dotenv": "^17.2.3",
