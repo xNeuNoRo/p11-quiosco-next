@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Proyecto 11 - Quiosco de Comida en Next.js
 
-## Getting Started
+[![Estado](https://img.shields.io/badge/status-completed-brightgreen)](https://github.com/xNeuNoRo/p11-quiosco-next)
+[![Vite](https://img.shields.io/badge/bundler-vite-blue)](https://vitejs.dev/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
 
-First, run the development server:
+> Proyecto de práctica: Quiosco de Comida en Next.js
 
+> Aplicación creada con Next.js + TypeScript + TailwindCSS + Prisma + SWR.
+
+## Contenido
+
+- ✅ Frontend Stack: **Next.js + TypeScript + TailwindCSS + Prisma + SWR**
+- ✅ Gestor de paquetes: **pnpm**
+
+---
+
+## Demo
+
+[`https://p11-quiosco-next.vercel.app/`](https://p11-quiosco-next.vercel.app/)
+
+--- 
+
+## Vistas
+
+- https://p11-quiosco-next.vercel.app/ (PRINCIPAL)
+- https://p11-quiosco-next.vercel.app/admin/orders (ADMIN PANEL)
+- https://p11-quiosco-next.vercel.app/orders (ORDENES LISTAS)
+
+---
+
+## Requisitos
+
+- Node.js >= 16 (recomendado)
+- pnpm (recomendado) — si no lo tienes:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+npm install -g pnpm
